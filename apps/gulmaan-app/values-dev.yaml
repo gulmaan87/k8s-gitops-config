@@ -2,7 +2,7 @@ replicaCount: 3
 
 image:
   repository: nginx
-  tag: latest
+  tag: broken
 
 resources:
   requests:
