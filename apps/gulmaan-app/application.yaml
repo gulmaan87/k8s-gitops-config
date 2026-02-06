@@ -7,7 +7,7 @@ spec:
   project: default
 
   source:
-    repoURL: https://github.com/gulmaan87/k8s-gitops-config.git
+    repoURL: https://github.com/gulmaan87/AWS-Enterprise-Grade-Kubernetes-Deployment.git
     targetRevision: main
     path: helm/gulmaan-app
     helm:
