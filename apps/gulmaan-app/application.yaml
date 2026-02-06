@@ -6,19 +6,25 @@ metadata:
 spec:
   project: default
 
-  source:
-    repoURL: https://github.com/gulmaan87/k8s-gitops-config.git
-    targetRevision: main
-    path: apps/gulmaan-app
-    helm:
-      valueFiles:
-        - apps/gulmaan-app/values-dev.yaml
-
   destination:
     server: https://kubernetes.default.svc
     namespace: dev
+
+  sources:
+    - repoURL: https://github.com/gulmaan87/AWS-Enterprise-Grade-Kubernetes-Deployment.git
+      targetRevision: main
+      path: helm/gulmaan-app
+      helm:
+        valueFiles:
+          - $values/apps/gulmaan-app/values-dev.yaml
+
+    - repoURL: https://github.com/gulmaan87/k8s-gitops-config.git
+      targetRevision: main
+      ref: values
 
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
