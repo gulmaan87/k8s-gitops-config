@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gulmaan-app
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/gulmaan87/k8s-gitops-config.git
+    targetRevision: main
+    path: helm/gulmaan-app
+    helm:
+      valueFiles:
+        - apps/gulmaan-app/values-dev.yaml
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
