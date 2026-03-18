@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ecommerce-app
+  namespace: argocd
+spec:
+  project: default
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev
+
+  sources:
+    - repoURL: https://github.com/gulmaan87/AWS-Enterprise-Grade-Kubernetes-Deployment.git
+      targetRevision: main
+      path: helm/ecommerce-app
+      helm:
+        valueFiles:
+          - $values/apps/ecommerce-app/values-dev.yaml
+
+    - repoURL: https://github.com/gulmaan87/k8s-gitops-config.git
+      targetRevision: main
+      ref: values
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
